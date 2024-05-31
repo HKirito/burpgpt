@@ -73,7 +73,7 @@ public class MyScanCheck implements ScanCheck {
                             + "</ul>",
                     gptRequest.getModel(), gptRequest.getMaxPromptSize(), escapedPrompt);
 
-            String choiceText = gptResponse.getChoices().get(0).getText();
+            String choiceText = gptResponse.getChoices().get(0).getMessage().getContent();
             String escapedDetail = StringEscapeUtils.escapeHtml4(choiceText.trim()).replace("\n", "<br />");
 
             AuditIssue auditIssue = AuditIssue.auditIssue(

@@ -26,6 +26,7 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
 
     private MyBurpExtension myBurpExtension;
 
+    private JTextField apiUrlField;
     private JTextField apiKeyField;
     private JComboBox<String> modelIdComboBox;
     private JSpinner maxPromptSizeField;
@@ -54,16 +55,23 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
 
     private void initComponents() {
         createApiKeyField(0);
-        createModelIdComboBox(1);
-        createMaxPromptSizeField(2);
-        createPromptField(3);
-        createPromptDescriptionLabel(4);
-        createApplyButton(5);
+        createApiUrlField(1);
+        createModelIdComboBox(2);
+        createMaxPromptSizeField(3);
+        createPromptField(4);
+        createPromptDescriptionLabel(5);
+        createApplyButton(6);
     }
 
     private void createApiKeyField(int y) {
         JLabel apiKeyLabel = new JLabel("API key:");
         apiKeyField = new JTextField(myBurpExtension.getApiKey(), 20);
+        add(apiKeyLabel, createGridBagConstraints(0, y));
+        add(apiKeyField, createGridBagConstraints(1, y));
+    }
+    private void createApiUrlField(int y) {
+        JLabel apiKeyLabel = new JLabel("API url:");
+        apiKeyField = new JTextField(myBurpExtension.getApiUrl(), 20);
         add(apiKeyLabel, createGridBagConstraints(0, y));
         add(apiKeyField, createGridBagConstraints(1, y));
     }
@@ -113,6 +121,7 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
 
     private void applySettings() {
         String newApiKey = apiKeyField.getText().trim();
+        String newApiUrl = apiUrlField.getText().trim();
         String newModelId = (String) modelIdComboBox.getSelectedItem();
         int newMaxPromptSize = (int) maxPromptSizeField.getValue();
         String newPromptText = promptField.getText().trim();
@@ -124,7 +133,7 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
             return;
         }
 
-        myBurpExtension.updateSettings(newApiKey, newModelId, newMaxPromptSize, newPromptText);
+        myBurpExtension.updateSettings(newApiUrl, newApiKey, newModelId, newMaxPromptSize, newPromptText);
 
         if (onApplyButtonClickListener != null) {
             onApplyButtonClickListener.onApplyButtonClick();

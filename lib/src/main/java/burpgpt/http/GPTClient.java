@@ -3,6 +3,7 @@ package burpgpt.http;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import com.google.gson.JsonArray;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.google.gson.Gson;
@@ -24,6 +25,7 @@ import okio.Buffer;
 
 public class GPTClient {
 
+  private String apiUrl;
   private String apiKey;
   private String model;
   private int maxPromptSize;
@@ -32,7 +34,8 @@ public class GPTClient {
   private final Gson gson;
   private Logging logging;
 
-  public GPTClient(String apiKey, String model, String prompt, Logging logging) {
+  public GPTClient(String apiUrl, String apiKey, String model, String prompt, Logging logging) {
+    this.apiUrl = apiUrl;
     this.apiKey = apiKey;
     this.model = model;
     this.prompt = prompt;
@@ -45,11 +48,12 @@ public class GPTClient {
     gson = new Gson();
   }
 
-  public void updateSettings(String newApiKey, String newModelId, int newMaxPromptSize, String newPrompt) {
+  public void updateSettings(String newApiUrl,String newApiKey, String newModelId, int newMaxPromptSize, String newPrompt) {
     this.apiKey = newApiKey;
     this.model = newModelId;
     this.maxPromptSize = newMaxPromptSize;
     this.prompt = newPrompt;
+    this.apiUrl = newApiUrl;
   }
 
   public Pair<GPTRequest, GPTResponse> identifyVulnerabilities(HttpRequestResponse selectedMessage) throws IOException {
@@ -90,13 +94,29 @@ public class GPTClient {
       throws IOException {
     gptRequest.setPrompt(prompt);
 
-    String apiEndpoint = "https://api.openai.com/v1/completions";
+    String apiEndpoint = "https://api.openai.com/v1/chat/completions";
     MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     JsonObject jsonObject = new JsonObject();
-    jsonObject.addProperty("prompt", gptRequest.getPrompt());
+
+    String[] splitPrompt = gptRequest.getPrompt().split("-----",2);
+    String systemMessage = splitPrompt[0];
+    String userMessage = splitPrompt[1];
+
+    JsonArray messages = new JsonArray();
+    JsonObject systemMessageObj = new JsonObject();
+    systemMessageObj.addProperty("role","system");
+    systemMessageObj.addProperty("content",systemMessage);
+    messages.add(systemMessageObj);
+    JsonObject userMessageObj = new JsonObject();
+    userMessageObj.addProperty("role","user");
+    userMessageObj.addProperty("content",userMessage);
+    messages.add(userMessageObj);
+
+//    jsonObject.addProperty("prompt", gptRequest.getPrompt());
     jsonObject.addProperty("max_tokens", gptRequest.getMaxPromptSize());
     jsonObject.addProperty("n", gptRequest.getN());
     jsonObject.addProperty("model", model);
+    jsonObject.add("messages",messages);
     String jsonBody = gson.toJson(jsonObject);
 
     RequestBody body = RequestBody.create(jsonBody, JSON);

@@ -3,6 +3,7 @@ package burpgpt.gpt;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class GPTResponse {
 
     @Getter
     public class Choice {
-        private String text;
+        private Message message;
         private int index;
         private Object logprobs; // or use a specific class structure if needed
         @SerializedName("finish_reason")
@@ -32,18 +33,33 @@ public class GPTResponse {
         @Override
         public String toString() {
             return "Choice{" +
-                    "text='" + text + '\'' +
+                    "message='" + message + '\'' +
                     ", index=" + index +
                     ", logprobs=" + logprobs +
                     ", finishReason='" + finishReason + '\'' +
                     '}';
         }
+
+        @Getter
+        public class Message {
+            private String role;
+            private String content;
+
+            @Override
+            public String toString() {
+                return "Message{" +
+                        "role='" + role + '\'' +
+                        ", content='" + content + '\'' +
+                        '}';
+            }
+        }
+
     }
 
     public List<String> getChoiceTexts() {
         List<String> choiceTexts = new ArrayList<>();
         for (Choice choice : choices) {
-            choiceTexts.add(choice.getText());
+            choiceTexts.add(choice.getMessage().getContent());
         }
         return choiceTexts;
     }

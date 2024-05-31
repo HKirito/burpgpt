@@ -19,7 +19,7 @@ public class MyBurpExtension implements BurpExtension, PropertyChangeListener {
     public static final Boolean DEBUG = false;
 
     public static final String EXTENSION = "BurpGPT";
-    public static final String VERSION = "0.1.1";
+    public static final String VERSION = "0.1.2";
 
     private PropertyChangeSupport propertyChangeSupport;
     @Getter
@@ -28,9 +28,11 @@ public class MyBurpExtension implements BurpExtension, PropertyChangeListener {
     MontoyaApi montoyaApi;
 
     @Getter
+    private String apiUrl = "PLEASE_CHANGE_ME_OR_YOU_WILL_MAKE_THE_DEVELOPER_SAD";
+    @Getter
     private String apiKey = "PLEASE_CHANGE_ME_OR_YOU_WILL_MAKE_THE_DEVELOPER_SAD";
     @Getter
-    List<String> modelIds = Arrays.asList("davinci", "ada", "babbage", "curie");
+    List<String> modelIds = Arrays.asList("davinci", "babbage", "curie","gpt-3.5-turbo","gpt-4","gpt-3.5-turbo-16k","gpt-4-0613","qwen-plus","qwen-long");
     @Getter
     private int maxPromptSize = 1024;
     @Getter
@@ -57,7 +59,7 @@ public class MyBurpExtension implements BurpExtension, PropertyChangeListener {
         montoyaApi.extension().setName(EXTENSION);
         logging.logToOutput("[+] Extension loaded");
 
-        gptClient = new GPTClient(apiKey, model, prompt, logging);
+        gptClient = new GPTClient(apiUrl, apiKey, model, prompt, logging);
         MyScanCheck scanCheck = new MyScanCheck(gptClient, logging);
 
         Menu menu = MyMenu.createMenu(this);
@@ -76,18 +78,19 @@ public class MyBurpExtension implements BurpExtension, PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
     }
 
-    public void updateSettings(String newApiKey, String newModelId, int newMaxPromptSize, String newPrompt) {
+    public void updateSettings(String newApiUrl, String newApiKey, String newModelId, int newMaxPromptSize, String newPrompt) {
         String[] newValues = {
                 newApiKey, newModelId, Integer.toString(newMaxPromptSize), newPrompt };
         String[] oldValues = {
                 this.apiKey, this.model, Integer.toString(this.maxPromptSize), this.prompt };
 
+        this.apiUrl = newApiUrl;
         this.apiKey = newApiKey;
         this.model = newModelId;
         this.maxPromptSize = newMaxPromptSize;
         this.prompt = newPrompt;
 
-        this.gptClient.updateSettings(newApiKey, newModelId, newMaxPromptSize, newPrompt);
+        this.gptClient.updateSettings(newApiUrl, newApiKey, newModelId, newMaxPromptSize, newPrompt);
 
         propertyChangeSupport.firePropertyChange("settingsChanged", oldValues, newValues);
 
