@@ -25,7 +25,7 @@ import okio.Buffer;
 
 public class GPTClient {
 
-  private String apiUrl;
+//  private String apiUrl;
   private String apiKey;
   private String model;
   private int maxPromptSize;
@@ -34,8 +34,8 @@ public class GPTClient {
   private final Gson gson;
   private Logging logging;
 
-  public GPTClient(String apiUrl, String apiKey, String model, String prompt, Logging logging) {
-    this.apiUrl = apiUrl;
+  public GPTClient(String apiKey, String model, String prompt, Logging logging) {
+//    this.apiUrl = apiUrl;
     this.apiKey = apiKey;
     this.model = model;
     this.prompt = prompt;
@@ -48,12 +48,12 @@ public class GPTClient {
     gson = new Gson();
   }
 
-  public void updateSettings(String newApiUrl,String newApiKey, String newModelId, int newMaxPromptSize, String newPrompt) {
+  public void updateSettings(String newApiKey, String newModelId, int newMaxPromptSize, String newPrompt) {
     this.apiKey = newApiKey;
     this.model = newModelId;
     this.maxPromptSize = newMaxPromptSize;
     this.prompt = newPrompt;
-    this.apiUrl = newApiUrl;
+//    this.apiUrl = newApiUrl;
   }
 
   public Pair<GPTRequest, GPTResponse> identifyVulnerabilities(HttpRequestResponse selectedMessage) throws IOException {
@@ -83,18 +83,20 @@ public class GPTClient {
     // TODO: Add a field to specify the maxTokens value
     try {
       GPTRequest gptRequest = new GPTRequest(selectedRequest, selectedResponse, model, 1, maxPromptSize);
-      GPTResponse gptResponse = getCompletions(gptRequest,apiUrl, apiKey, model, prompt);
+//      GPTResponse gptResponse = getCompletions(gptRequest,apiUrl, apiKey, model, prompt);
+      GPTResponse gptResponse = getCompletions(gptRequest, apiKey, model, prompt);
       return Pair.of(gptRequest, gptResponse);
     } catch (IOException e) {
       throw e;
     }
   }
 
-  private GPTResponse getCompletions(GPTRequest gptRequest,String apiUrl, String apiKey, String model, String prompt)
+  private GPTResponse getCompletions(GPTRequest gptRequest, String apiKey, String model, String prompt)
       throws IOException {
     gptRequest.setPrompt(prompt);
 
-    String apiEndpoint = apiUrl;
+//    String apiEndpoint = apiUrl;
+    String apiEndpoint = "https://api.openai.com/v1/completions";
     MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     JsonObject jsonObject = new JsonObject();
 

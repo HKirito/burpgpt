@@ -27,7 +27,7 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
 
     private MyBurpExtension myBurpExtension;
 
-    private JTextField apiUrlField;
+//    private JTextField apiUrlField;
     private JTextField apiKeyField;
     private JComboBox<String> modelIdComboBox;
     private JSpinner maxPromptSizeField;
@@ -53,7 +53,7 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
 
     private void initComponents() {
         createApiKeyField(0);
-        createApiUrlField(1);
+//        createApiUrlField(1);
         createModelIdComboBox(2);
         createMaxPromptSizeField(3);
         createPromptField(4);
@@ -67,12 +67,12 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
         add(apiKeyLabel, createGridBagConstraints(0, y));
         add(apiKeyField, createGridBagConstraints(1, y));
     }
-    private void createApiUrlField(int y) {
-        JLabel apiUrlLabel = new JLabel("API url:");
-        apiUrlField = new JTextField(myBurpExtension.getApiUrl(), 20);
-        add(apiUrlLabel, createGridBagConstraints(0, y));
-        add(apiUrlField, createGridBagConstraints(1, y));
-    }
+//    private void createApiUrlField(int y) {
+//        JLabel apiUrlLabel = new JLabel("API url:");
+//        apiUrlField = new JTextField(myBurpExtension.getApiUrl(), 20);
+//        add(apiUrlLabel, createGridBagConstraints(0, y));
+//        add(apiUrlField, createGridBagConstraints(1, y));
+//    }
 
     private void createModelIdComboBox(int y) {
         JLabel modelIdLabel = new JLabel("Model:");
@@ -119,7 +119,7 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
 
     private void applySettings() {
         String newApiKey = apiKeyField.getText().trim();
-        String newApiUrl = apiUrlField.getText().trim();
+//        String newApiUrl = apiUrlField.getText().trim();
         String newModelId = (String) modelIdComboBox.getSelectedItem();
         int newMaxPromptSize = (int) maxPromptSizeField.getValue();
         String newPromptText = promptField.getText().trim();
@@ -131,7 +131,8 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
             return;
         }
 
-        myBurpExtension.updateSettings(newApiUrl, newApiKey, newModelId, newMaxPromptSize, newPromptText);
+//        myBurpExtension.updateSettings(newApiUrl, newApiKey, newModelId, newMaxPromptSize, newPromptText);
+        myBurpExtension.updateSettings(newApiKey, newModelId, newMaxPromptSize, newPromptText);
 
         if (onApplyButtonClickListener != null) {
             onApplyButtonClickListener.onApplyButtonClick();
