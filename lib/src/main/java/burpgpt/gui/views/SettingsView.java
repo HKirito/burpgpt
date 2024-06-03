@@ -21,6 +21,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 
 import burp.MyBurpExtension;
+import lombok.Setter;
 
 public class SettingsView extends JPanel implements PropertyChangeListener {
 
@@ -38,11 +39,8 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
         void onApplyButtonClick();
     }
 
+    @Setter
     private OnApplyButtonClickListener onApplyButtonClickListener;
-
-    public void setOnApplyButtonClickListener(OnApplyButtonClickListener onApplyButtonClickListener) {
-        this.onApplyButtonClickListener = onApplyButtonClickListener;
-    }
 
     public SettingsView(MyBurpExtension myBurpExtension) {
         this.myBurpExtension = myBurpExtension;
@@ -71,9 +69,9 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
     }
     private void createApiUrlField(int y) {
         JLabel apiKeyLabel = new JLabel("API url:");
-        apiKeyField = new JTextField(myBurpExtension.getApiUrl(), 20);
-        add(apiKeyLabel, createGridBagConstraints(0, y));
-        add(apiKeyField, createGridBagConstraints(1, y));
+        apiUrlField = new JTextField(myBurpExtension.getApiUrl(), 20);
+        add(apiUrlField, createGridBagConstraints(0, y));
+        add(apiUrlField, createGridBagConstraints(1, y));
     }
 
     private void createModelIdComboBox(int y) {

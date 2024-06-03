@@ -83,18 +83,18 @@ public class GPTClient {
     // TODO: Add a field to specify the maxTokens value
     try {
       GPTRequest gptRequest = new GPTRequest(selectedRequest, selectedResponse, model, 1, maxPromptSize);
-      GPTResponse gptResponse = getCompletions(gptRequest, apiKey, model, prompt);
+      GPTResponse gptResponse = getCompletions(gptRequest,apiUrl, apiKey, model, prompt);
       return Pair.of(gptRequest, gptResponse);
     } catch (IOException e) {
       throw e;
     }
   }
 
-  private GPTResponse getCompletions(GPTRequest gptRequest, String apiKey, String model, String prompt)
+  private GPTResponse getCompletions(GPTRequest gptRequest,String apiUrl, String apiKey, String model, String prompt)
       throws IOException {
     gptRequest.setPrompt(prompt);
 
-    String apiEndpoint = "https://api.openai.com/v1/chat/completions";
+    String apiEndpoint = apiUrl;
     MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     JsonObject jsonObject = new JsonObject();
 
