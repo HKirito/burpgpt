@@ -68,9 +68,9 @@ public class SettingsView extends JPanel implements PropertyChangeListener {
         add(apiKeyField, createGridBagConstraints(1, y));
     }
     private void createApiUrlField(int y) {
-        JLabel apiKeyLabel = new JLabel("API url:");
+        JLabel apiUrlLabel = new JLabel("API url:");
         apiUrlField = new JTextField(myBurpExtension.getApiUrl(), 20);
-        add(apiUrlField, createGridBagConstraints(0, y));
+        add(apiUrlLabel, createGridBagConstraints(0, y));
         add(apiUrlField, createGridBagConstraints(1, y));
     }
 

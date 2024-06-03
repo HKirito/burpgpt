@@ -28,7 +28,7 @@ public class MyBurpExtension implements BurpExtension, PropertyChangeListener {
     MontoyaApi montoyaApi;
 
     @Getter
-    private String apiUrl = "PLEASE_CHANGE_ME_OR_YOU_WILL_MAKE_THE_DEVELOPER_SAD";
+    private String apiUrl = "PLEASE_CHANGE_ME_TO_YOUR_MODULE_API_URL";
     @Getter
     private String apiKey = "PLEASE_CHANGE_ME_OR_YOU_WILL_MAKE_THE_DEVELOPER_SAD";
     @Getter
