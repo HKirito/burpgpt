@@ -182,19 +182,19 @@ The extension is currently under development and we welcome feedback, comments, 
 
 ## Sponsor 💖
 
-If this extension has saved you time and hassle during a security assessment, consider showing some love by sponsoring a cup of coffee ☕ for the developer. It's the fuel that powers development, after all. Just hit that shiny Sponsor button at the top of the page or [click here](https://github.com/sponsors/aress31) to contribute and keep the caffeine flowing. 💸
+If this extension has saved you time and hassle during a security assessment, consider showing some love by sponsoring a cup of coffee ☕ for the developer. It's the fuel that powers development, after all. Just hit that shiny Sponsor button at the top of the page or [click here](https://github.com/sponsors/Hkirito) to contribute and keep the caffeine flowing. 💸
 
 ## Reporting Issues
 
 Did you find a bug? Well, don't just let it crawl around! Let's squash it together like a couple of bug whisperers! 🐛💪
 
-Please report any issues on the [GitHub issues tracker](https://github.com/aress31/burpgpt/issues). Together, we'll make this extension as reliable as a cockroach surviving a nuclear apocalypse! 🚀
+Please report any issues on the [GitHub issues tracker](https://github.com/Hkirito/burpgpt/issues). Together, we'll make this extension as reliable as a cockroach surviving a nuclear apocalypse! 🚀
 
 ## Contributing
 
 Looking to make a splash with your mad coding skills? 💻
 
-Awesome! Contributions are welcome and greatly appreciated. Please submit all PRs on the [GitHub pull requests tracker](https://github.com/aress31/burpgpt/pulls). Together we can make this extension even more amazing! 🚀
+Awesome! Contributions are welcome and greatly appreciated. Please submit all PRs on the [GitHub pull requests tracker](https://github.com/Hkirito/burpgpt/pulls). Together we can make this extension even more amazing! 🚀
 
 ## License
 
